@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Runtime.InteropServices;
-using System.Threading;
 using UnityEngine;
+using System;
 
 public class PlayerScript : MonoBehaviour
 {
     public Vector3 startPosition;
     public CharacterController controller;
-    public float turnSmoothTime = 0.1f;
+    public float turnSmoothTime = 1f;
     float turnSmoothVelocity;
     public Transform camera;
     public Animator anim;
@@ -25,10 +22,10 @@ public class PlayerScript : MonoBehaviour
     private float _speed = 5f;
 
     [SerializeField]
-    private float _jumpSpeed = 30f;
+    private float _jumpSpeed = 0f;
 
     [SerializeField]
-    private float _gravity = 0.1f;
+    private float _gravity = -9.8f;
 
     // Start is called before the first frame update
     void Start()
@@ -50,16 +47,13 @@ public class PlayerScript : MonoBehaviour
 
 
 
-        if (direction.magnitude >= 0.1f)
-        {
+        if (direction.magnitude >= 0.1f) {
 
-            if (Input.GetKey("left shift"))
-            {
+            if (Input.GetKey("left shift")) {
                 _speed = 10f;
                 anim.SetBool("isRun", true);
             }
-            else
-            {
+            else {
                 _speed = 5f;
                 anim.SetBool("isRun", false);
             }
@@ -74,33 +68,26 @@ public class PlayerScript : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * _speed * Time.deltaTime);
 
-            if(Time.time > nextJump)
-            {
-                if (Input.GetButtonDown("Jump") && isGrounded)
-                {
+            if (Time.time > nextJump) {
+                if (Input.GetButtonDown("Jump") && isGrounded) {
                     nextJump = Time.time + jumpCoolDown + 0.1f;
                     anim.SetBool("isJump", true);
-                    direction.y = _jumpSpeed;
-                    direction.y -= _gravity * Time.deltaTime;
+                    direction.y = _jumpSpeed - _gravity * Time.deltaTime;
                     controller.Move(direction * Time.deltaTime);
                 }
             }
 
         }
 
-        else
-        {
+        else {
             anim.SetBool("isWalking", false);
         }
 
-        if(Time.time > nextJump)
-        {
-            if (Input.GetButtonDown("Jump") && isGrounded)
-            {
+        if (Time.time > nextJump) {
+            if (Input.GetButtonDown("Jump") && isGrounded) {
                 nextJump = Time.time + jumpCoolDown;
                 anim.SetBool("isJump", true);
-                direction.y = _jumpSpeed;
-                direction.y -= _gravity * Time.deltaTime;
+                direction.y = _jumpSpeed - _gravity * Time.deltaTime;
                 controller.Move(direction * Time.deltaTime);
             }
         }
