@@ -6,4 +6,4 @@ We are creating a hastily made game.
 
 > Assignment 5 exe build link [is available here](https://drive.google.com/file/d/1SyKzo8UkNBh3tH2xa6uLFmwC61zXnSdX/view?usp=sharing)
 
-> Assignment 6 exe build link [is available here] (https://drive.google.com/file/d/1RGYTsLQ98l8aasdYhCpx8TGeff92AB-n/view?usp=sharing)
+> Assignment 6 exe build link [is available here](https://drive.google.com/file/d/1RGYTsLQ98l8aasdYhCpx8TGeff92AB-n/view?usp=sharing)
