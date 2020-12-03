@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Ground
   - HealingObject
-  - Enemy
+  - TutorialSpawn
   layers:
   - Default
   - TransparentFX

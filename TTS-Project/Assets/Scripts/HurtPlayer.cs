@@ -5,7 +5,7 @@ using UnityEngine;
 public class HurtPlayer : MonoBehaviour
 {
 
-    public int damageToGive = 10;
+    public int damageToGive;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +22,10 @@ public class HurtPlayer : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            FindObjectOfType<HealthManager>().HurtPlayer(damageToGive);
+            Vector3 hitDirection = other.transform.position - transform.position;
+            hitDirection = hitDirection.normalized;
+
+            FindObjectOfType<HealthManager>().HurtPlayer(damageToGive, hitDirection);
         }
     }
 }
