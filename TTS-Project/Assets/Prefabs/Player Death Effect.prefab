@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8831024850854487299}
   - component: {fileID: 1222308512037382824}
   - component: {fileID: 1385559883906202630}
+  - component: {fileID: 1113479765324220030}
   m_Layer: 0
   m_Name: Player Death Effect
   m_TagString: Untagged
@@ -4812,3 +4813,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &1113479765324220030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7528819635510521987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22981daff6eb842458c20c9eed0cc53f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 4

@@ -7,6 +7,7 @@ public class Checkpoint : MonoBehaviour
     public HealthManager Hman;
     public AudioSource Ding;
     public GameObject gameObject;
+   
 
 
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class Checkpoint : MonoBehaviour
             Ding.Play();
             Hman.SetSpawnPoint(transform.position);
             DestroyObject(gameObject);
+            
         }
     }
 }

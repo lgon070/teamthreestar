@@ -30,6 +30,7 @@ public class HealthManager : MonoBehaviour{
     public float waitForFade;
 
     public AudioSource hurtSound;
+    public AudioSource DeathSound;
  
 
     // Start is called before the first frame update
@@ -123,10 +124,10 @@ public class HealthManager : MonoBehaviour{
         isRespawning = true;
         thePlayer.gameObject.SetActive(false);
         Instantiate(deathEffect, thePlayer.transform.position, thePlayer.transform.rotation);
+        DeathSound.Play();
 
         yield return new WaitForSeconds(respawnLength);
         isFadeToBlack = true;
-
         yield return new WaitForSeconds(waitForFade);
 
         isFadeToBlack = false;
