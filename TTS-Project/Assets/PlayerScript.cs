@@ -11,25 +11,16 @@ public class PlayerScript : MonoBehaviour
     float turnSmoothVelocity;
     public Transform camera;
     private Animator anim;
-    float nextJump = 0;
-    float jumpCoolDown = 1f;
 
     public AudioSource walkingSound;
     public AudioSource runningSound;
 
 
     private Vector3 direction;
-
-    private bool isGrounded = true;
-
-    [SerializeField]
     private float _speed = 5f;
-
-    [SerializeField]
-    private float _jumpSpeed = 0f;
-
-    [SerializeField]
-    private float _gravity = -9.8f;
+    private float jumpSpeed = 7.0f;
+    private float gravity = 14.0f;
+    private float verticalVelocity;
 
     public float knockBackForce;
     public float knockBackTime;
@@ -46,11 +37,30 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+  
+        if (controller.isGrounded) {
+           
+            if(Input.GetButtonDown("Jump")) {
+                anim.SetBool("isWalking", false);
+                anim.SetBool("isRunning", false);
+                anim.SetBool("isJump", true);
+                verticalVelocity = jumpSpeed;
+            }
+
+        }
+
+        else {
+            anim.SetBool("isJump", false);
+            verticalVelocity -= gravity * Time.deltaTime;
+        }
+
+        Vector3 moveVector = new Vector3(0, verticalVelocity, 0);
+        controller.Move(moveVector * Time.deltaTime);
 
         if (knockBackCounter <= 0)
         {
 
-            anim.SetBool("isJump", false);
+            //anim.SetBool("isJump", false);
             anim.SetBool("isRun", false);
             float horizontalInput = Input.GetAxisRaw("Horizontal");
             float verticalInput = Input.GetAxisRaw("Vertical");
@@ -78,9 +88,7 @@ public class PlayerScript : MonoBehaviour
 
                 }
                 anim.SetBool("isWalking", true);
-                
 
-            
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -88,18 +96,7 @@ public class PlayerScript : MonoBehaviour
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
                 controller.Move(moveDir.normalized * _speed * Time.deltaTime);
 
-                if (Time.time > nextJump)
-                {
-                    if (Input.GetButtonDown("Jump") && isGrounded)
-                    {
-                        nextJump = Time.time + jumpCoolDown + 0.1f;
-                        anim.SetBool("isJump", true);
-                        direction.y = _jumpSpeed - _gravity * Time.deltaTime;
-                        controller.Move(direction * Time.deltaTime);
-                    }
-                }
-
-            }
+        }
 
             else
             {
@@ -107,25 +104,6 @@ public class PlayerScript : MonoBehaviour
                 walkingSound.Play();
             }
 
-        if (Time.time > nextJump) {
-            if (Input.GetButtonDown("Jump") && isGrounded) {
-                nextJump = Time.time + jumpCoolDown;
-                anim.SetBool("isJump", true);
-                direction.y = _jumpSpeed - _gravity * Time.deltaTime;
-                controller.Move(direction * Time.deltaTime);
-            }
-        }
-
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        isGrounded = true;
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        isGrounded = false;
     }
 
     public void KnockBack(Vector3 directionp)
