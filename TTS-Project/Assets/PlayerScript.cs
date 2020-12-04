@@ -37,10 +37,12 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-  
-        if (controller.isGrounded) {
-           
-            if(Input.GetButtonDown("Jump")) {
+
+        if (controller.isGrounded)
+        {
+
+            if (Input.GetButtonDown("Jump"))
+            {
                 anim.SetBool("isWalking", false);
                 anim.SetBool("isRunning", false);
                 anim.SetBool("isJump", true);
@@ -49,7 +51,8 @@ public class PlayerScript : MonoBehaviour
 
         }
 
-        else {
+        else
+        {
             anim.SetBool("isJump", false);
             verticalVelocity -= gravity * Time.deltaTime;
         }
@@ -71,38 +74,38 @@ public class PlayerScript : MonoBehaviour
             knockBackCounter -= Time.deltaTime;
         }
 
-            if (direction.magnitude >= 0.1f)
+        if (direction.magnitude >= 0.1f)
+        {
+            if (Input.GetKey("left shift"))
             {
-                if (Input.GetKey("left shift"))
-                {
-                    _speed = 10f;
-                    
-                    anim.SetBool("isRun", true);
-                    
-                }
-                else
-                {
-                    _speed = 5f;
-                    anim.SetBool("isRun", false);
-                    
+                _speed = 10f;
 
-                }
-                anim.SetBool("isWalking", true);
+                anim.SetBool("isRun", true);
 
-                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
-                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            }
+            else
+            {
+                _speed = 5f;
+                anim.SetBool("isRun", false);
 
-                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                controller.Move(moveDir.normalized * _speed * Time.deltaTime);
+
+            }
+            anim.SetBool("isWalking", true);
+
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(moveDir.normalized * _speed * Time.deltaTime);
 
         }
 
-            else
-            {
-                anim.SetBool("isWalking", false);
-                walkingSound.Play();
-            }
+        else
+        {
+            anim.SetBool("isWalking", false);
+            walkingSound.Play();
+        }
 
     }
 
