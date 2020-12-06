@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SceneChanger : MonoBehaviour
 {
+    public string levelName;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,8 @@ public class SceneChanger : MonoBehaviour
     {
         if(other.tag.Equals("Player"))
         {
-            Application.LoadLevel("Level01");
+            Application.LoadLevel(levelName);
         }
+        
     }
 }
