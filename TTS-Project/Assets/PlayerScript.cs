@@ -44,7 +44,7 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 anim.SetBool("isWalking", false);
-                anim.SetBool("isRunning", false);
+                anim.SetBool("isRun", false);
                 anim.SetBool("isJump", true);
                 verticalVelocity = jumpSpeed;
             }
