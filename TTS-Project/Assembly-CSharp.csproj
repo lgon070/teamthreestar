@@ -73,6 +73,7 @@
     <Compile Include="Assets\PlayerScript.cs" />
     <Compile Include="Assets\Scripts\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\DestoryOverTime.cs" />
+    <Compile Include="Assets\Scripts\EnemyScript.cs" />
     <Compile Include="Assets\Scripts\Game_Manager.cs" />
     <Compile Include="Assets\Scripts\HealPlayer.cs" />
     <Compile Include="Assets\Scripts\HealthManager.cs" />
